@@ -2,7 +2,7 @@
 include("functions.php");
 $pdo = connect_to_db();
 
-$sql = 'SELECT * FROM todo_table ORDER BY deadline ASC';
+$sql = 'SELECT * FROM users_table ORDER BY id ASC';
 
 $stmt = $pdo->prepare($sql);
 
@@ -18,13 +18,15 @@ $output = "";
 foreach ($result as $record) {
   $output .= "
     <tr>
-      <td>{$record["deadline"]}</td>
-      <td>{$record["todo"]}</td>
+      <td>{$record["username"]}</td>
+      <td>{$record["password"]}</td>
+      <td>{$record["is_admin"]}</td>
+      <td>{$record["is_deleted"]}</td>  
       <td>
-        <a href='todo_edit.php?id={$record["id"]}'>edit</a>
+        <a href='users_edit.php?id={$record["id"]}'>edit</a>
       </td>
       <td>
-        <a href='todo_delete.php?id={$record["id"]}'>delete</a>
+        <a href='users_delete.php?id={$record["id"]}'>delete</a>
       </td>
     </tr>
   ";
@@ -38,20 +40,20 @@ foreach ($result as $record) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DB連携型todoリスト（一覧画面）</title>
+  <title>ユーザー管理画面（一覧画面）</title>
 </head>
 
 <body>
   <fieldset>
-    <legend>DB連携型todoリスト（一覧画面）</legend>
-    <a href="todo_input.php">入力画面</a>
+    <legend>ユーザー管理画面（一覧画面）</legend>
+    <a href="users_input.php">入力画面</a>
     <table>
       <thead>
         <tr>
-          <th>deadline</th>
-          <th>todo</th>
-          <th></th>
-          <th></th>
+          <th>ユーザー名</th>
+          <th>パスワード</th>
+          <th>管理者</th>
+          <th>削除キー</th>
         </tr>
       </thead>
       <tbody>

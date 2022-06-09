@@ -1,5 +1,23 @@
 <?php
 
+//errorメッセージ
+$err = [];
+
+//バリデーション
+if(!$username = filter_input(INPUT_POST, "username")){
+  $err[] = "ユーザー名を記入してください";
+};
+if(!$email = filter_input(INPUT_POST, "email")){
+  $err[] = "メールアドレスを記入してください";
+};
+
+$password = filter_input(INPUT_POST, "username");
+if(preg_match("/",)){
+
+}
+$password_conf = filter_input(INPUT_POST, "password_conf ");
+
+ 
 ?>
 
 <!DOCTYPE html>
