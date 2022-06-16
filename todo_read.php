@@ -1,5 +1,7 @@
 <?php
+session_start();
 include("functions.php");
+check_session_id();
 $pdo = connect_to_db();
 
 $sql = 'SELECT * FROM todo_table ORDER BY deadline ASC';
@@ -20,12 +22,8 @@ foreach ($result as $record) {
     <tr>
       <td>{$record["deadline"]}</td>
       <td>{$record["todo"]}</td>
-      <td>
-        <a href='todo_edit.php?id={$record["id"]}'>edit</a>
-      </td>
-      <td>
-        <a href='todo_delete.php?id={$record["id"]}'>delete</a>
-      </td>
+      <td><a href='todo_edit.php?id={$record["id"]}'>edit</a></td>
+      <td><a href='todo_delete.php?id={$record["id"]}'>delete</a></td>
     </tr>
   ";
 }
@@ -43,8 +41,9 @@ foreach ($result as $record) {
 
 <body>
   <fieldset>
-    <legend>DB連携型todoリスト（一覧画面）</legend>
+    <legend>DB連携型todoリスト（一覧画面）<?=$_SESSION["username"]?></legend>
     <a href="todo_input.php">入力画面</a>
+    <a href="todo_logout.php">logout</a>
     <table>
       <thead>
         <tr>

@@ -1,6 +1,4 @@
 <?php
-// var_dump($_GET);
-// exit();
 include("functions.php");
 
 $id = $_GET["id"];
@@ -10,7 +8,7 @@ $pdo = connect_to_db();
 $sql = 'SELECT * FROM todo_table WHERE id=:id';
 
 $stmt = $pdo->prepare($sql);
-$stmt->bindValue(':id', $id, PDO::PARAM_STR);
+$stmt->bindValue(':id', $id, PDO::PARAM_INT);
 
 try {
   $status = $stmt->execute();
@@ -18,18 +16,8 @@ try {
   echo json_encode(["sql error" => "{$e->getMessage()}"]);
   exit();
 }
-// id受け取り
+
 $record = $stmt->fetch(PDO::FETCH_ASSOC);
-// var_dump($record);
-// exit("");
-
-
-
-// DB接続
-
-
-// SQL実行
-
 
 ?>
 
@@ -48,17 +36,15 @@ $record = $stmt->fetch(PDO::FETCH_ASSOC);
       <legend>DB連携型todoリスト（編集画面）</legend>
       <a href="todo_read.php">一覧画面</a>
       <div>
-        todo: <input type="text" name="todo" value="<?= $record['todo'] ?>">
+        todo: <input type="text" name="todo" value="<?= $record["todo"] ?>">
       </div>
       <div>
-        deadline: <input type="date" name="deadline" value="<?= $record['deadline'] ?>">
-      </div>
-      <div>
-          <input type="hidden" name="id" value="<?= $record['id'] ?>">
+        deadline: <input type="date" name="deadline" value="<?= $record["deadline"] ?>">
       </div>
       <div>
         <button>submit</button>
       </div>
+      <input type="hidden" name="id" value="<?= $record["id"] ?>">
     </fieldset>
   </form>
 

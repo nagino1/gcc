@@ -1,14 +1,14 @@
 <?php
-// データ受け取り
-$id = $_GET['id'];
+include("functions.php");
 
-include('functions.php');
+$id = $_GET["id"];
+
 $pdo = connect_to_db();
 
-$sql = 'DELETE FROM todo_table WHERE id=:id';
+$sql = "DELETE FROM todo_table WHERE id=:id";
 
 $stmt = $pdo->prepare($sql);
-$stmt->bindValue(':id', $id, PDO::PARAM_STR);
+$stmt->bindValue(':id', $id, PDO::PARAM_INT);
 
 try {
   $status = $stmt->execute();
@@ -19,8 +19,3 @@ try {
 
 header("Location:todo_read.php");
 exit();
-
-// DB接続
-
-
-// SQL実行
